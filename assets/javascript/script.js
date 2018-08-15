@@ -30,6 +30,17 @@ $(document).ready(function () {
         addButton(topic);
         $("#animalInput").val("");
     });
+    $(document).on("click", "img", function () {
+        console.log("image clicked!!");
+        var status = $(this).attr("data-status");
+        if (status === STATUS_STILL) {
+            $(this).attr("src", $(this).attr("data-animated"));
+            $(this).attr("data-status", STATUS_ANIMATED);
+        } else {
+            $(this).attr("src", $(this).attr("data-still"));
+            $(this).attr("data-status", STATUS_STILL);
+        }
+    });
 });
 function displayButtons() {
     topics.forEach(function (label) {
@@ -53,6 +64,3 @@ function addButton(label) {
     var button = $("<button>").addClass("btn btn-primary").text(label);
     $("#animalButtons").append(button);
 }
-/*function removeAllButtons() {
-    $("#animalButtons button").append(button);
-}*/
