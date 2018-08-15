@@ -15,7 +15,8 @@ var STATUS_ANIMATED = "animated";
 $(document).ready(function () {
     displayButtons();
     $("#animalButtons").on("click", "button", function () {
-        console.log(`Button "${$(this).text()}" Clicked!!`);
+        $(this).removeClass("btn-primary").addClass("btn-warning");
+        $(this).siblings().removeClass("btn-warning").addClass("btn-primary");
         var queryURL = `http://api.giphy.com/v1/gifs/search?api_key=${apiKey}&q=${$(this).text()}&limit=${LIMIT}`;
         $.ajax({
             url: queryURL,
@@ -48,19 +49,27 @@ function displayButtons() {
 
     });
 }
+
 function showImages(response) {
     console.log(response);
-    $('#animals img').remove();
+    $('#animals .img-with-text').remove();
     response.data.forEach(function (item) {
+        var imgDiv = $("<div>").addClass("img-with-text");
         var imgTag = $("<img>");
         imgTag.attr("data-still", item.images.original_still.url);
         imgTag.attr("data-animated", item.images.original.url);
         imgTag.attr("src", item.images.original_still.url);
         imgTag.attr("data-status", STATUS_STILL);
-        $("#animals").append(imgTag);
+        imgDiv.append(imgTag);
+        var imageText = $("<p>").text(`Rating: ${item.rating.toUpperCase()}`);
+        imgDiv.append(imageText);
+        console.log(item.rating);
+        $("#animals").append(imgDiv);
     });
 }
+
 function addButton(label) {
     var button = $("<button>").addClass("btn btn-primary").text(label);
     $("#animalButtons").append(button);
 }
+
