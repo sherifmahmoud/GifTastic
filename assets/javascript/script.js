@@ -17,7 +17,7 @@ $(document).ready(function () {
     $("#animalButtons").on("click", "button", function () {
         $(this).removeClass("btn-primary").addClass("btn-warning");
         $(this).siblings().removeClass("btn-warning").addClass("btn-primary");
-        var queryURL = `http://api.giphy.com/v1/gifs/search?api_key=${apiKey}&q=${$(this).text()}&limit=${LIMIT}`;
+        var queryURL = `https://api.giphy.com/v1/gifs/search?api_key=${apiKey}&q=${$(this).text()}&limit=${LIMIT}`;
         $.ajax({
             url: queryURL,
             method: "GET"
